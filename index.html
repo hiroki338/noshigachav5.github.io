@@ -251,7 +251,7 @@ async function initApp() {
     }
 }
 
-window.connect = async function () {
+async function connect() {
     await initApp();
     if (accounts && accounts.length > 0) {
         const truncatedAddress = `${accounts[0].slice(0, 5)}...${accounts[0].slice(-5)}`;
@@ -269,7 +269,7 @@ window.connect = async function () {
     }
 }*/
 
-window.enterL = function () {
+function enterLpttery() {
     contract.methods.enter().send({ from: accounts[0], value: web3.utils.toWei("0.01", "ether") })
         .then(() => console.log("Entered the lottery!"))
         .catch(console.error);
@@ -284,7 +284,7 @@ window.enterL = function () {
 		alert("Lottery Entered, click CONFIRM");
     });*/
  
-    window.pickWinner = function () {
+    function pickWinner() {
     let tx1 = contract.methods.getParticipants().call();
     let tx2 = tx1.length;
     let tx3 = tx2 * 10**16;
