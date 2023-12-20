@@ -230,7 +230,7 @@ async function connect() {
 }
 
 //function to use enter() function
-async function toenter() {
+async function enterLottery() {
     contract.enter();
     const tx = signer.sendTransaction({
         to: "0xE5Dc013d8002Cf9c2c8921D3c15Ab8B48013b42E",
