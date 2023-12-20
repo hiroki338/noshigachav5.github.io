@@ -201,7 +201,7 @@ let signer = null;
 let contract = null;
 // const decimal= 10**18;
 
-async function connectWallet() {
+async function connect() {
     if (window.ethereum) {
         try {
             await window.ethereum.request({ method: 'eth_requestAccounts' });
