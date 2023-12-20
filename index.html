@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noshi Gacha v5.0</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.0.0/ethers.min.js" type="application/javascript"></script>
+</head>
+<body>
+    <h1>Lottery Contract</h1>
+    <button id="connectWallet" onclick="connect()">Connect Wallet</button>
+    <div>
+        <h2>Enter Lottery</h2>
+        <button id="enterLottery" onclick="enterLottery()">Enter</button>
+        <p>Cost to enter: 0.01 ETH</p>
+    </div>
+    <div>
+        <h2>Pick a Winner (Only Manager)</h2>
+        <button id="pickWinner" onclick="pickWinner()">Pick Winner</button>
+    </div>
+    <div>
+        <h2>Participants</h2>
+        <ul id="participantsList"></ul>
+    </div>
+    <div id="winner"></div>
+    <div id="winnings"></div>
+    <script src="app.js"></script>
+</body>
+</html>
