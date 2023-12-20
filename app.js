@@ -195,41 +195,39 @@ let contract;
 let web3;
 let accounts;
  
-window.addEventListener('load', async () => {
-    if(window.ethereum) {
-        web3 = new Web3(window.ethereum);
+async function initApp() {
+    if (typeof window.ethereum !== 'undefined') {
         try {
-            await window.ethereum.enable();
-            initApp();
-        } catch (error) {
-            console.error("Access to your Ethereum account rejected.");
-        }
-    } 
-	else {
-        console.error("Please install MetaMask!");
-		alert("Please Install metamask");
-    }
-});
- 
-function initApp() {
-    contract = new web3.eth.Contract(abi, contractAddress);
-    document.getElementById('connectWallet').addEventListener('click', async () => {
-        accounts = await web3.eth.getAccounts();
-		manageraddress = await contract.methods.manager().call();
-        document.getElementById('connectWallet').innerText = 'Connected';
-            if (accounts && accounts.length > 0) {
-                const truncatedAddress = `${accounts[0].slice(0, 5)}...${accounts[0].slice(-5)}`;
-                document.getElementById('connectWallet').innerText = `Connected (${truncatedAddress})`;
-                document.getElementById('connectWallet').disabled = true;
-		
-        
-            console.log('Wallet Connected',accounts[0]);
+            if (typeof web3 !== "undefined") {
+                web3 = new Web3(window.ethereum);
+            } else {
+                web3 = new Web3(window.ethereum);
+            }
+            accounts = await web3.eth.getAccounts();
+            contract = new web3.eth.Contract(abi, contractAddress);
+
+            document.getElementById('enterLottery').disabled = false;
+            document.getElementById('pickWinner').disabled = false;
+
+            console.log("Wallet connected");
             console.log("First 5 characters:", accounts[0].slice(0, 5));
             console.log("Last 5 characters:", accounts[0].slice(-5));
-		alert("Wallet Connected");
-		
-    }});
+        } catch (error) {
+            console.error("Error connecting to web3:", error);
+        }
+    } else {
+        console.error("Web3 not available. Please install MetaMask or another Ethereum provider.");
+    }
+}
 
+async function connect() {
+    await initApp();
+    if (accounts && accounts.length > 0) {
+        const truncatedAddress = `${accounts[0].slice(0, 5)}...${accounts[0].slice(-5)}`;
+        document.getElementById("connectWallet").innerText = `Connected (${truncatedAddress})`;
+        document.getElementById("connectWallet").disabled = true;
+    }
+}
 
     document.getElementById('enterLottery').addEventListener('click', () => {
         contract.methods.enter().send({ from: accounts[0], value: web3.utils.toWei("0.01", "ether") })
